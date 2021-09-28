@@ -1,8 +1,15 @@
 ﻿
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <html>
+<head>
+    <meta charset="UTF-8">
+</head>
 <body>
-    
+    <form asp-action="@Url.Action("UserPanel", "UserPanel")">
+        <h1>Welcome</h1>
+    </form>
 </body>
 </html>

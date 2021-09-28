@@ -1,0 +1,50 @@
+﻿@model CoWorking.Models.Order
+
+<h4>Детали заказа</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="OrdersEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrderId" />
+            <div class="form-group">
+                <label asp-for="WorkerId" class="control-label"></label>
+                <input asp-for="WorkerId" class="form-control" min="1"/>
+                <span asp-validation-for="WorkerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input type="date" asp-for="StartDate" name="StartDate" id="MinDate" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input type="date" asp-for="EndDate" name="EndDate" id="MaxDate" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkSpaceId" class="control-label"></label>
+                <input asp-for="WorkSpaceId" class="form-control" min="4"/>
+                <span asp-validation-for="WorkSpaceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DevicesId" class="control-label"></label>
+                <input asp-for="DevicesId" class="form-control" />
+                <span asp-validation-for="DevicesId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="AdminPanel">Вернуться назад</a>
+</div>
+
+<script type="text/javascript" src="\js\site.js" charset="utf-8"></script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,4 +1,37 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1;
+var yyyy = today.getFullYear();
 
-// Write your JavaScript code.
+if (dd < 10) {
+    dd = '0' + dd;
+}
+
+if (mm < 10) {
+    mm = '0' + mm;
+}
+
+today = yyyy + '-' + mm + '-' + dd;
+
+document.getElementById("MinDate").setAttribute("min", today);
+
+document.getElementById("MaxDate").setAttribute("min", today);
+
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 2; //January is 0!
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+    dd = '0' + dd;
+}
+
+if (mm < 10) {
+    mm = '0' + mm;
+}
+
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("MinDate").setAttribute("max", today);
+document.getElementById("MaxDate").setAttribute("max", today);

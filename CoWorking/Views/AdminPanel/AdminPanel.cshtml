@@ -1,11 +1,81 @@
-﻿
+﻿@using CoWorking.Models
+@model IQueryable<Order>
+
+
+
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <html>
+<head>
+    <meta charset="UTF-8">
+
+</head>
 <body>
-    <div>
-       
-    </div>
+
+
+    <form asp-action="@Url.Action("AdminPanel", "AdminPanel")">
+
+        <h3>История заказов</h3>
+        <br>
+
+        <div class="container" align="left">
+
+            <a asp-controller="AdminPanel" asp-action="AddOrder">Добавить заказ </a><a> </a>
+
+            <a asp-controller="DeviceTable" asp-action="IndexDevice">Список девайсов </a><a> </a>
+
+            <a asp-controller="WorkersTable" asp-action="IndexWorkers">Список работников </a><a> </a>
+
+            <a asp-controller="WorkSpaceTable" asp-action="IndexWorkSpaces">Список рабочих мест </a><a> </a><br><br>
+
+        </div>
+        <div align="right">
+            <table class="table">
+                <tr>
+                    <th>Номер заказа</th>
+                    <th>Номер Работника</th>
+                    <th>Начальная дата</th>
+                    <th>Конечная дата</th>
+                    <th>Номер места</th>
+                    <th>Номера девайсов</th>
+
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkerId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkSpaceId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DevicesId)
+                        </td>
+                        <td>
+                            <a asp-controller="AdminPanel" asp-route-id="@item.OrderId" asp-action="OrdersEdit">Изменить</a>
+                        </td>
+                        <td>
+                            <input asp-action="OrdersDelete" type="submit" asp-route-id="@item.OrderId" name="DeleteReserve" value="Удалить" class="btn btn-danger" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </form>
+
+
+
 </body>
 </html>

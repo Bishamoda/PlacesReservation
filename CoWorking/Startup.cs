@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,15 +29,21 @@ namespace CoWorking
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllersWithViews();
-            services.AddDbContext<PlaceDBContext>(options =>
+            services.AddDbContext<UserDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
+            services.AddTransient<IWorkSpacesRepository, WorkSpacesRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IDeviceRepository, DeviceRepository>();
+            services.AddTransient<IWorkerRepository, WorkerRepository>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options => 
         {
             options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
         });
+            services.AddScoped<WorkSpacesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

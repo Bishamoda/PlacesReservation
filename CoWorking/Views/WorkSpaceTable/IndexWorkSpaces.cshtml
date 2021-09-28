@@ -1,0 +1,39 @@
+﻿@using CoWorking.Models
+@model IQueryable<WorkSpace>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+
+    <form asp-action="@Url.Action("IndexWorkSpaces", "WorkSpaceTable")">
+        <h3>Список рабочих мест</h3>
+        <br>
+
+
+        <table class="table">
+            <tr>
+                <th>Номер места</th>
+                <th>Название места</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkSpaceName)
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
+    <div>
+        <a asp-controller="AdminPanel" asp-action="AdminPanel">Вернуться назад</a>
+    </div>
+
+</body>
+</html>

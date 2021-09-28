@@ -9,10 +9,13 @@ namespace CoWorking.Controllers
 {
     public class UserPanelController : Controller
     {
+        
         [Authorize]
-        public IActionResult Index()
+        public IActionResult UserPanel()
         {
-            return Content(User.Identity.Name);
+
+            return View(); 
+
         }
     }
 }

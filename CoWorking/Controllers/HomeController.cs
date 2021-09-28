@@ -25,6 +25,10 @@ namespace CoWorking.Controllers
         {
             return RedirectToAction("Login", "Account");
         }
+        public IActionResult Privacy()
+        {
+            return RedirectToAction("Login", "Account");
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

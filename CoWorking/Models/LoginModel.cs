@@ -13,6 +13,7 @@ namespace CoWorking.Models
 
         [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]
+        [MaxLength(8)]
         public string Password { get; set; }
         
         

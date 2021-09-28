@@ -3,6 +3,7 @@ using CoWorking.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,10 +17,10 @@ namespace CoWorking.Controllers
 {
     public class AccountController : Controller
     {
-        public List<Worker> worker;
+        
 
-        private PlaceDBContext db;
-        public AccountController(PlaceDBContext context)
+        private UserDBContext db;
+        public AccountController(UserDBContext context)
         {
             db = context;
         }
@@ -36,28 +37,26 @@ namespace CoWorking.Controllers
             if (ModelState.IsValid)
             {
                 var worker = await db.Worker.FirstOrDefaultAsync(worker => worker.Login == model.Login && worker.Password == model.Password);
-                
+                var nextPath = RedirectToAction("Login", "Account");
                 if (worker != null)
                 {
-                    if (worker.Role == 1)
+                    switch (worker.Role)
                     {
-                        await Authenticate(model.Login);
-                        return RedirectToAction("Index", "AdminPanel");
+                        case  1:
+                            await Authenticate(model.Login);
+                            nextPath = RedirectToAction("AdminPanel", "AdminPanel");
+                            break;
 
-                        
+                        case 2:
+                            await Authenticate(model.Login);
+                            nextPath = RedirectToAction("UserPanel", "UserPanel");
+                            break;
                     }
-                    else if(worker.Role == 2)
-                    {
-                        await Authenticate(model.Login);
-                        return RedirectToAction("Index", "UserPanel");
+                    return nextPath;
+                    
+                }
 
-                        
-                    }
-
-                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
-
-                }              
-
+                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
             return View(model);
         }
@@ -81,7 +80,7 @@ namespace CoWorking.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "AccountController");
         }
     }
 }
