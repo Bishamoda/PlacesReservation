@@ -15,30 +15,31 @@ namespace CoWorking.Repository
             db = context;
         }
 
-        public Device AddDevice(Device devices)
-        {
-            db.Devices.Add(devices);
-            db.SaveChanges();
-            return devices;
-        }
-
-        public Device DeleteDevice(int id)
-        {
-            Device devices = db.Devices.Find(id);
-            if (devices == null)
-                return null;
-            else
-                db.Devices.Remove(devices);
-            db.SaveChanges();
-            return devices;
-        }
-
         public IQueryable<Device> GetAllDevice() => db.Devices.OrderBy(d => d.DeviceId);
 
-        public Device GetDeviceByID(int id)
+        public Device GetDeviceByID(string DeviceId)
         {
-            return db.Devices.Single(d => d.DeviceId == id);
+            int intDeviceId;
+            DeviceId = DeviceId.Replace(" ","");
+            string[] ids = DeviceId.Split(",");
+            Device check = new();
+            for (int i = 0; i < ids.Length;)
+            {
+                intDeviceId = Int32.Parse(ids[i].ToString());
+
+                check = db.Devices.Find(intDeviceId);
+                if (check == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return check;
         }
+
 
     }
 }

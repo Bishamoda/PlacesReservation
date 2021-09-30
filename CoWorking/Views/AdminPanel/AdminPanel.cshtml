@@ -17,29 +17,29 @@
 
     <form asp-action="@Url.Action("AdminPanel", "AdminPanel")">
 
-        <h3>История заказов</h3>
+        <h3>History of orders</h3>
         <br>
 
         <div class="container" align="left">
 
-            <a asp-controller="AdminPanel" asp-action="AddOrder">Добавить заказ </a><a> </a>
+            <a asp-controller="AdminPanel" asp-action="AddOrder">Add order </a><a> </a>
 
-            <a asp-controller="DeviceTable" asp-action="IndexDevice">Список девайсов </a><a> </a>
+            <a asp-controller="DeviceTable" asp-action="IndexDevice">List of devices </a><a> </a>
 
-            <a asp-controller="WorkersTable" asp-action="IndexWorkers">Список работников </a><a> </a>
+            <a asp-controller="WorkersTable" asp-action="IndexWorkers">List of workers </a><a> </a>
 
-            <a asp-controller="WorkSpaceTable" asp-action="IndexWorkSpaces">Список рабочих мест </a><a> </a><br><br>
+            <a asp-controller="WorkSpaceTable" asp-action="IndexWorkSpaces">List of work spaces </a><a> </a><br><br>
 
         </div>
         <div align="right">
             <table class="table">
                 <tr>
-                    <th>Номер заказа</th>
-                    <th>Номер Работника</th>
-                    <th>Начальная дата</th>
-                    <th>Конечная дата</th>
-                    <th>Номер места</th>
-                    <th>Номера девайсов</th>
+                    <th>Order number</th>
+                    <th>Worker Number</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Work Space number</th>
+                    <th>Selected devices</th>
 
                 </tr>
                 @foreach (var item in Model)
@@ -64,10 +64,10 @@
                             @Html.DisplayFor(modelItem => item.DevicesId)
                         </td>
                         <td>
-                            <a asp-controller="AdminPanel" asp-route-id="@item.OrderId" asp-action="OrdersEdit">Изменить</a>
+                            <a asp-controller="AdminPanel" asp-route-id="@item.OrderId" asp-action="OrdersEdit">Edit</a>
                         </td>
                         <td>
-                            <input asp-action="OrdersDelete" type="submit" asp-route-id="@item.OrderId" name="DeleteReserve" value="Удалить" class="btn btn-danger" />
+                            <input asp-action="OrdersDelete" type="submit" asp-route-id="@item.OrderId" name="DeleteReserve" value="Delete" class="btn btn-danger" />
                         </td>
                     </tr>
                 }

@@ -11,6 +11,7 @@ namespace CoWorking.Controllers
 {
     public class DeviceTableController : Controller
     {
+
         private readonly IDeviceRepository _deviceRepository;
 
         public DeviceTableController(IDeviceRepository deviceRepository)
@@ -21,6 +22,7 @@ namespace CoWorking.Controllers
         [Authorize]
         public IActionResult IndexDevice()
         {
+
             if (User.Identity.IsAuthenticated == false)
             {
                 return RedirectToAction("Login", "Account");
@@ -32,23 +34,5 @@ namespace CoWorking.Controllers
             }
             
         }
-
-        [Authorize]
-        [HttpGet]
-        public IActionResult AddDevice()
-        {
-
-            return View("AddDevice", new Device());
-        }
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult AddDevice(Device newDevice)
-        {
-            
-            _deviceRepository.AddDevice(newDevice);
-            return RedirectToAction("Index", "DeviceTable");
-        }
-
     }
 }

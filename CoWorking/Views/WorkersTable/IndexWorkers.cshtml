@@ -9,15 +9,15 @@
 <body>
 
     <form asp-action="@Url.Action("IndexWorkers", "WorkersTable")">
-        <h3>Список работников</h3>
+        <h3>List of workers</h3>
         <br>
 
 
         <table class="table">
             <tr>
-                <th>Номер работника</th>
-                <th>Логин</th>
-                <th>Номер роли</th>
+                <th>Employee number</th>
+                <th>Login</th>
+                <th>Role number</th>
 
 
             </tr>
@@ -39,7 +39,7 @@
         </table>
     </form>
     <div>
-        <a asp-controller="AdminPanel" asp-action="AdminPanel">Вернуться назад</a>
+        <a asp-controller="AdminPanel" asp-action="AdminPanel">Back to list</a>
     </div>
 
 </body>

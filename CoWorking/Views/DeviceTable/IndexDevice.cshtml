@@ -9,16 +9,13 @@
 <body>
 
     <form asp-action="@Url.Action("IndexDevice", "DeviceTable")">
-        <h3>Список девайсов</h3>
+        <h3>List of devices</h3>
         <br>
-
-        <a asp-controller="DeviceTable" asp-action="AddDevice">Добавить девайс</a>
-        <br><br>
 
         <table class="table">
             <tr>
-                <th>Номер девайса</th>
-                <th>Название девайса</th>
+                <th>Device number</th>
+                <th>Device name</th>
 
 
             </tr>
@@ -32,17 +29,13 @@
                         @Html.DisplayFor(modelItem => item.DeviceName)
                     </td>
 
-                    <td>
-                        <input asp-controller="DeviceTable" type="submit" asp-route-id="@item.DeviceId" name="DeleteDevice" value="Удалить" class="btn btn-danger" />
-                    </td>
                 </tr>
             }
         </table>
     </form>
     <div>
-        <a asp-controller="AdminPanel" asp-action="AdminPanel">Вернуться назад</a>
+        <a asp-controller="AdminPanel" asp-action="AdminPanel">Back to list</a>
     </div>
-
 
 
 </body>

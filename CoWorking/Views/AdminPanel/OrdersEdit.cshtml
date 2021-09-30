@@ -1,46 +1,53 @@
 ﻿@model CoWorking.Models.Order
 
-<h4>Детали заказа</h4>
+<h4>Order details</h4>
 <hr />
+<div class="alarm">
+    <p>
+        <span style="color: red;">
+            @ViewData["alarm"]
+        </span>
+    </p>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="OrdersEdit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="OrderId" />
             <div class="form-group">
-                <label asp-for="WorkerId" class="control-label"></label>
-                <input asp-for="WorkerId" class="form-control" min="1"/>
+                <label asp-for="WorkerId" class="control-label">Worker Number</label>
+                <input asp-for="WorkerId" class="form-control" min="1" name="WorkerId"disabled/>
                 <span asp-validation-for="WorkerId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input type="date" asp-for="StartDate" name="StartDate" id="MinDate" />
+                <label asp-for="StartDate" class="control-label">Start date </label>
+                <input type="date" asp-for="StartDate" name="StartDate" id="MinDate" disabled />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input type="date" asp-for="EndDate" name="EndDate" id="MaxDate" />
+                <label asp-for="EndDate" class="control-label">End date</label>
+                <input type="date" asp-for="EndDate" name="EndDate" id="MaxDate" disabled/>
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkSpaceId" class="control-label"></label>
-                <input asp-for="WorkSpaceId" class="form-control" min="4"/>
+                <label asp-for="WorkSpaceId" class="control-label">Work Space number</label>
+                <input asp-for="WorkSpaceId" class="form-control" min="4" name="WorkSpaceId"disabled/>
                 <span asp-validation-for="WorkSpaceId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DevicesId" class="control-label"></label>
-                <input asp-for="DevicesId" class="form-control" />
+                <label asp-for="DevicesId" class="control-label">Selected devices (Enter ID numbers of devices)</label>
+                <input asp-for="DevicesId" class="form-control"  name="DevicesId"/>
                 <span asp-validation-for="DevicesId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="AdminPanel">Вернуться назад</a>
+    <a asp-action="AdminPanel">Back to list</a>
 </div>
 
 <script type="text/javascript" src="\js\site.js" charset="utf-8"></script>

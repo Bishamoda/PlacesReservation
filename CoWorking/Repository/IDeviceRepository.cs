@@ -11,9 +11,10 @@ namespace CoWorking.Repository
     {
 
         public IQueryable<Device> GetAllDevice();
-        public Device DeleteDevice(int id);
-        public Device GetDeviceByID(int id);
-        public Device AddDevice(Device devices);
+        
+        public Device GetDeviceByID(string DeviceId);
+        
+        
 
     }
 

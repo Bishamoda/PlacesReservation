@@ -13,6 +13,8 @@ namespace CoWorking.Repository
         public Order DeleteOrder(int id);
         public Order GetOrderByID(int id);
         public Order AddOrder(Order orders);
+        public Order GetOrdersCheck(DateTime StartDate, DateTime EndDate, int WorkSpaceID);
+
 
     }
 

@@ -1,0 +1,34 @@
+﻿@model CoWorking.Models.WorkSpace
+
+<h4>New work space</h4>
+<hr />
+<div class="alarm">
+    <p>
+        <span style="color: red;">
+            @ViewData["alarm"]
+        </span>
+    </p>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddWorkSpace">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="WorkSpaceName" class="control-label">Work space name</label>
+                <input asp-for="WorkSpaceName" class="form-control" id="WorkSpaceName"/>
+                <span asp-validation-for="WorkSpaceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="IndexWorkSpaces">Back to list</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

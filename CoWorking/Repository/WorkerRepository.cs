@@ -17,5 +17,18 @@ namespace CoWorking.Repository
 
         public IQueryable<Worker> GetAllWorkers() => db.Worker.OrderBy(w => w.WorkerID);
 
+        public Worker GetWorkerByIDCheck(int id)
+        {
+            var check = db.Worker.Find(id);
+            if (check == null)
+            {
+                return null;
+            }
+            else
+            {
+                return check;
+            }
+        }
+
     }
 }

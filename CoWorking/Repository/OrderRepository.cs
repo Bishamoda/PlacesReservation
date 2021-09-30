@@ -47,5 +47,18 @@ namespace CoWorking.Repository
             db.SaveChanges();
             return orders;
         }
+        public Order GetOrdersCheck(DateTime StartDate, DateTime EndDate, int WorkSpaceID)
+        {
+            var check = db.Orders.FirstOrDefault(order => order.StartDate == StartDate && order.EndDate == EndDate && order.WorkSpaceId == WorkSpaceID);
+            if (check == null)
+            {
+                return null;
+            }
+            else
+            {
+                return check;
+            }
+            
+        }
     }
 }

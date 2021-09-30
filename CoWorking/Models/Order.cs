@@ -13,14 +13,15 @@ namespace CoWorking.Models
         [Required(ErrorMessage = "Это поле обязательно")]
         public int WorkerId { get; set; }
 
-        [Required(ErrorMessage = "Это поле обязательно")]
+        [Required(ErrorMessage = "Неверная дата")]
         public DateTime StartDate { get; set; }
 
-        [Required(ErrorMessage = "Это поле обязательно")]
+        [Required(ErrorMessage = "Неверная дата")]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Это поле обязательно")]
         public int WorkSpaceId { get; set; }
         public string DevicesId { get; set; }
+        
     }
 }

@@ -9,6 +9,6 @@ namespace CoWorking.Repository
     public interface IWorkerRepository
     {
         public IQueryable<Worker> GetAllWorkers();
-        
+        public Worker GetWorkerByIDCheck(int id);
     }
 }
