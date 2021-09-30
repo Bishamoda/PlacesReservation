@@ -29,9 +29,25 @@ namespace CoWorking.Controllers
             }
             else
             {
-                var model = _workSpacesRepository.GetAllPlaces();
-                return View(model);
+                if (User.Identity.Name == "admin")
+                {
+                    var model = _workSpacesRepository.GetAllPlaces();
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("IndexWorkSpacesUser", "DeviceTableController");
+                }
+
             }
+        }
+        [Authorize]
+        public IActionResult IndexWorkSpacesUser()
+        {
+
+            var model = _workSpacesRepository.GetAllPlaces();
+            return View(model);
+
         }
 
         [Authorize]

@@ -27,6 +27,7 @@ namespace CoWorking.Controllers
 
         public IActionResult Login()
         {
+            HttpContext.Response.Cookies.Delete("UserId");
             return View();
         }
 
@@ -49,6 +50,10 @@ namespace CoWorking.Controllers
 
                         case 2:
                             await Authenticate(model.Login);
+                            HttpContext.Response.Cookies.Append("UserId", Convert.ToString(worker.WorkerID), new Microsoft.AspNetCore.Http.CookieOptions
+                            {
+                                Expires = DateTime.Now.AddYears(1)
+                            });
                             nextPath = RedirectToAction("UserPanel", "UserPanel");
                             break;
                     }
@@ -74,7 +79,6 @@ namespace CoWorking.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -82,6 +86,8 @@ namespace CoWorking.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "AccountController");
         }
+
+
     }
 }
 

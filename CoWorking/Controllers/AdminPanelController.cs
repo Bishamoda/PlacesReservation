@@ -31,8 +31,17 @@ namespace CoWorking.Controllers
         [Authorize]
         public IActionResult AdminPanel()
         {
-            var model = _orderRepository.GetAllOrders();
-            return View(model);
+            if (User.Identity.Name == "admin")
+            {
+                ViewData["Login"] = User.Identity.Name;
+                var model = _orderRepository.GetAllOrders();
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
 
         }
 
@@ -92,7 +101,7 @@ namespace CoWorking.Controllers
         public IActionResult OrdersEdit(int id, string ErrorMes)
         {
 
-            Order model = id == default ? new Order() : _orderRepository.GetOrderByID(id);
+            Order model = id == default ? new Order() : _orderRepository.GetSingleOrderByID(id);
             ViewData["alarm"] = ErrorMes;
             return View(model);
         }

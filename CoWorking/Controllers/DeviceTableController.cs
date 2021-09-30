@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CoWorking.Controllers
@@ -27,12 +28,34 @@ namespace CoWorking.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            else 
+            else
             {
-                var model = _deviceRepository.GetAllDevice();
-                return View(model);
+                if (User.Identity.Name == "admin")
+                {
+                    var model = _deviceRepository.GetAllDevice();
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("IndexDeviceUser", "DeviceTableController");
+                }
+
             }
-            
+
         }
+
+        [Authorize]
+        public IActionResult IndexDeviceUser()
+        {
+
+            var model = _deviceRepository.GetAllDevice();
+            return View(model);
+
+        }
+
+
+
+
+
     }
 }

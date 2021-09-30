@@ -11,8 +11,10 @@ namespace CoWorking.Repository
         public IQueryable<Order> GetAllOrders();
         public Order UpDate(Order orders);
         public Order DeleteOrder(int id);
-        public Order GetOrderByID(int id);
+        public Order GetSingleOrderByID(int id);
         public Order AddOrder(Order orders);
+        public IQueryable<Order> GetOrderByDate();
+        public Order GetOrderByID(int id);
         public Order GetOrdersCheck(DateTime StartDate, DateTime EndDate, int WorkSpaceID);
 
 

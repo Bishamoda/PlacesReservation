@@ -14,11 +14,14 @@
 </head>
 <body>
 
-
+    
     <form asp-action="@Url.Action("AdminPanel", "AdminPanel")">
+        <div align="center">
+            <h4>Welcom, @ViewData["Login"]</h4>
+        </div>
+        
 
-        <h3>History of orders</h3>
-        <br>
+        <h3>History of orders</h3><br>
 
         <div class="container" align="left">
 

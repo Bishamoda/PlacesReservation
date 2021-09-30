@@ -35,9 +35,13 @@ namespace CoWorking.Repository
 
         public IQueryable<Order> GetAllOrders() => db.Orders.OrderBy(w => w.OrderId);
 
-        public Order GetOrderByID(int id)
+        public Order GetSingleOrderByID(int id)
         {
             return db.Orders.Single(o => o.OrderId == id);
+        }
+        public Order GetOrderByID(int id)
+        {
+            return (Order)db.Orders.Where(o => o.WorkerId == id);
         }
 
         public Order UpDate(Order orders)
@@ -47,6 +51,13 @@ namespace CoWorking.Repository
             db.SaveChanges();
             return orders;
         }
+
+        public IQueryable<Order> GetOrderByDate()
+        {
+            return db.Orders.OrderByDescending(o => o.StartDate);
+            
+        }
+
         public Order GetOrdersCheck(DateTime StartDate, DateTime EndDate, int WorkSpaceID)
         {
             var check = db.Orders.FirstOrDefault(order => order.StartDate == StartDate && order.EndDate == EndDate && order.WorkSpaceId == WorkSpaceID);
