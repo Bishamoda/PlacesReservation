@@ -35,17 +35,6 @@ namespace CoWorking.Controllers
             return View(model);
 
         }
-        [Authorize]
-        public IActionResult MyOrders(int id)
-        {
-            id = int.Parse(Request.Cookies["UserId"]);
-
-            var model = _orderRepository.GetOrderByID(id);
-            return View(model);
-
-        }
-
-
 
         [Authorize]
         [HttpGet]
@@ -58,15 +47,17 @@ namespace CoWorking.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddOrder(Order newOrder, DateTime StartDate, DateTime EndDate, int WorkSpaceID, string DevicesId)
+        public IActionResult AddOrder(Order newOrder, string WorkerID, DateTime StartDate, DateTime EndDate, int WorkSpaceID, string DevicesId)
         {
             var dateNow = DateTime.Now;
+            var intWorkerID = Int32.Parse(WorkerID);
+            var workersCheck = _workerRepository.GetWorkerByIDCheck(intWorkerID);
             var workSpaceCheck = _workSpacesRepository.GetPlacesByIDCheck(WorkSpaceID);
             var orderDublicate = _orderRepository.GetOrdersCheck(StartDate, EndDate, WorkSpaceID);
             var deviceCheck = _deviceRepository.GetDeviceByID(DevicesId);
 
 
-            if ((StartDate > dateNow) && (EndDate > dateNow) && (workSpaceCheck != null))
+            if ((StartDate > dateNow) && (EndDate > dateNow) && (workSpaceCheck != null) && (workersCheck != null))
             {
                 if (orderDublicate == null)
                 {

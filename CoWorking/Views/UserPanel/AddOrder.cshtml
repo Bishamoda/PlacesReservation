@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="WorkerId" class="control-label">Worker Number</label>
-                <input asp-for="WorkerId" name="WorkerID" class="form-control" value="@TempData["UserId"]" disabled/>
+                <input asp-for="WorkerId" name="WorkerID" class="form-control" value="@TempData["UserId"]" min="@TempData["UserId"]" max="@TempData["UserId"]"/>
                 <span asp-validation-for="WorkerId" class="text-danger"></span>
             </div>
             <div class="form-group">
