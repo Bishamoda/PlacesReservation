@@ -1,0 +1,84 @@
+﻿@using CoWorking.Models
+@model IQueryable<Order>
+
+
+<html>
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+    <script language="JavaScript">
+    </script>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <form asp-action="@Url.Action("UserPanel", "UserPanel")">
+                    <div align="center">
+                        <h4>Welcome, @ViewData["Login"]</h4>
+                    </div>
+                    <div class="container" align="left">
+
+                        <a asp-controller="UserPanel" asp-action="AddOrder">Add order </a><a> </a>
+                    </div>
+                    <div class="container" align="left">
+                        <a asp-controller="DeviceTable" asp-action="IndexDeviceUser">List of devices </a><a> </a>
+                    </div>
+                    <div class="container" align="left">
+                        <a asp-controller="WorkSpaceTable" asp-action="IndexWorkSpacesUser">List of work spaces </a><a> </a>
+                    </div>
+                    
+
+                </form>
+            </div>
+            <div class="col-sm-8">
+                
+                <form asp-action="@Url.Action("UserPanel", "UserPanel")">
+                    <h3>History of orders</h3><br>
+                    <table class="table">
+
+                        <tr style="background-color: #cdcdcd ">
+                            <th>Order number</th>
+                            <th>Worker Number</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>Work Space number</th>
+                            <th>Selected devices</th>
+
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr style="background-color: #f2f2f2 ">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WorkerId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WorkSpaceId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DevicesId)
+                                </td>
+
+                            </tr>
+                        }
+                    </table>
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

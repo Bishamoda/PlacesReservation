@@ -1,0 +1,42 @@
+﻿@using CoWorking.Models
+@model IQueryable<Device>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+
+    <form asp-action="@Url.Action("IndexDeviceUser", "DeviceTable")">
+        <h3>List of devices</h3>
+        <br>
+
+        <table class="table">
+            <tr style="background-color: #cdcdcd ">
+                <th>Device number</th>
+                <th>Device name</th>
+
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr style="background-color: #f2f2f2 ">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeviceId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeviceName)
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </form>
+    <div>
+        <a asp-controller="UserPanel" asp-action="UserPanel">Back to list</a>
+    </div>
+
+
+</body>
+</html>

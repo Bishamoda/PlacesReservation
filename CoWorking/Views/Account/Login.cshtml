@@ -1,0 +1,27 @@
+﻿@model CoWorking.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 align="center">Welcome. Please authorize your account.</h2><br><br>
+
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+    <div align="center" class="validation" asp-validation-summary="ModelOnly"></div>
+    <div align="center">
+        <div class="form-group" style="padding-left: 25px;">
+            <label asp-for="Login">Login</label>
+            <input type="text" asp-for="Login" />
+            <span asp-validation-for="Login" />
+        </div>
+        <br>
+        <div class="form-group">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" />
+        </div>
+        <br>
+        <div class="form-group">
+            <input type="submit" value="Войти" class="btn btn-outline-dark" />
+        </div>
+    </div>
+</form>

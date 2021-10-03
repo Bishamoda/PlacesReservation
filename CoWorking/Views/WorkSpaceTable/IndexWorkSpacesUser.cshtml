@@ -1,0 +1,41 @@
+﻿@using CoWorking.Models
+@model IQueryable<WorkSpace>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+
+    <form asp-action="@Url.Action("IndexWorkSpacesUser", "WorkSpaceTable")">
+        <h3>List of work spaces</h3>
+        <br>
+
+        <table class="table">
+            <tr style="background-color: #cdcdcd ">
+                <th>Work Space number</th>
+                <th>Work Space name</th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr style="background-color: #f2f2f2 ">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkSpaceName)
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </form>
+    <div>
+        <a asp-controller="UserPanel" asp-action="UserPanel">Back to list</a>
+    </div>
+
+</body>
+</html>
