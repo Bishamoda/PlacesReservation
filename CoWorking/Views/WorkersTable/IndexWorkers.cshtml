@@ -1,0 +1,46 @@
+﻿@using CoWorking.Models
+@model IQueryable<Worker>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+
+    <form asp-action="@Url.Action("IndexWorkers", "WorkersTable")">
+        <h3>List of workers</h3>
+        <br>
+
+
+        <table class="table">
+            <tr style="background-color: #cdcdcd ">
+                <th>Employee number</th>
+                <th>Login</th>
+                <th>Role number</th>
+
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr  style="background-color: #f2f2f2 ">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkerID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Login)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </form>
+    <div>
+        <a asp-controller="AdminPanel" asp-action="AdminPanel">Back to list</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿@using CoWorking.Models
+@model IQueryable<WorkSpace>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+
+    <form asp-action="@Url.Action("IndexWorkSpaces", "WorkSpaceTable")">
+        <h3>List of work spaces</h3>
+        <br>
+        <div class="container" align="left">
+
+            <a asp-controller="WorkSpaceTable" asp-action="AddWorkSpace">Add work space </a><a> </a>
+
+        </div>
+
+
+        <table class="table">
+            <tr style="background-color: #cdcdcd">
+                <th>Work Space number</th>
+                <th>Work Space name</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr style="background-color: #f2f2f2 ">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkSpaceName)
+                    </td>
+                    <td>
+                        <input asp-action="WorkSpaceDelete" type="submit" asp-route-id="@item.Id" name="DeleteWorkSpace" value="Delete" class="btn btn-danger" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
+    <div>
+        <a asp-controller="AdminPanel" asp-action="AdminPanel">Back to list</a>
+    </div>
+
+</body>
+</html>
