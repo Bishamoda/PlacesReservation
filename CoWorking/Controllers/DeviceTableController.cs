@@ -1,5 +1,5 @@
 ﻿using CoWorking.Models;
-using CoWorking.Repository;
+using CoWorking.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,11 +13,11 @@ namespace CoWorking.Controllers
     public class DeviceTableController : Controller
     {
 
-        private readonly IDeviceRepository _deviceRepository;
+        private readonly IDeviceService _deviceService;
 
-        public DeviceTableController(IDeviceRepository deviceRepository)
+        public DeviceTableController(IDeviceService deviceService)
         {
-            _deviceRepository = deviceRepository;
+            _deviceService = deviceService;
         }
 
         [Authorize]
@@ -32,7 +32,7 @@ namespace CoWorking.Controllers
             {
                 if (User.Identity.Name == "admin")
                 {
-                    var model = _deviceRepository.GetAllDevice();
+                    var model = _deviceService.GetAllDevice();
                     return View(model);
                 }
                 else
@@ -48,7 +48,7 @@ namespace CoWorking.Controllers
         public IActionResult IndexDeviceUser()
         {
 
-            var model = _deviceRepository.GetAllDevice();
+            var model = _deviceService.GetAllDevice();
             return View(model);
 
         }

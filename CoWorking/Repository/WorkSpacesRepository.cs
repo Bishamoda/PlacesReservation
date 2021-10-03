@@ -9,6 +9,7 @@ namespace CoWorking.Repository
     public class WorkSpacesRepository : IWorkSpacesRepository
     {
        private readonly UserDBContext db;
+
         public WorkSpacesRepository(UserDBContext context)
         {
             db = context;
@@ -51,9 +52,9 @@ namespace CoWorking.Repository
                 return check;
             } 
         }
-        public WorkSpace NameCheck(string workSpaceNAme)
+        public WorkSpace NameCheck(string workSpaceName)
         {
-            var check = db.WorkSpace.FirstOrDefault(w => w.WorkSpaceName == workSpaceNAme);
+            var check = db.WorkSpace.FirstOrDefault(w => w.WorkSpaceName == workSpaceName);
             if (check == null)
             {
                 return null;

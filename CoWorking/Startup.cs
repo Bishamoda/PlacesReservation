@@ -1,5 +1,6 @@
 using CoWorking.Models;
 using CoWorking.Repository;
+using CoWorking.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,10 +34,17 @@ namespace CoWorking
             services.AddControllersWithViews();
             services.AddDbContext<UserDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
+
             services.AddTransient<IWorkSpacesRepository, WorkSpacesRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IDeviceRepository, DeviceRepository>();
             services.AddTransient<IWorkerRepository, WorkerRepository>();
+
+            services.AddTransient<IWorkerService, WorkerService>();
+            services.AddTransient<IDeviceService, DeviceService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IWorkSpacesService, WorkSpacesService>();
+
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options => 
@@ -72,7 +80,7 @@ namespace CoWorking
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

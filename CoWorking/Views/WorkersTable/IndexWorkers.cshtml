@@ -14,7 +14,7 @@
 
 
         <table class="table">
-            <tr>
+            <tr style="background-color: #cdcdcd ">
                 <th>Employee number</th>
                 <th>Login</th>
                 <th>Role number</th>
@@ -23,7 +23,7 @@
             </tr>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr  style="background-color: #f2f2f2 ">
                     <td>
                         @Html.DisplayFor(modelItem => item.WorkerID)
                     </td>

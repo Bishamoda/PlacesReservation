@@ -1,4 +1,4 @@
-﻿using CoWorking.Repository;
+﻿using CoWorking.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,11 +10,11 @@ namespace CoWorking.Controllers
 {
     public class WorkersTableController : Controller
     {
-        private readonly IWorkerRepository _workerRepository;
+        private readonly IWorkerService _workerService;
 
-        public WorkersTableController(IWorkerRepository workerRepository)
+        public WorkersTableController(IWorkerService workerService)
         {
-            _workerRepository = workerRepository;
+            _workerService = workerService;
         }
 
         [Authorize]
@@ -26,7 +26,7 @@ namespace CoWorking.Controllers
             }
             else
             {
-                var model = _workerRepository.GetAllWorkers();
+                var model = _workerService.GetAllWorkers();
                 return View(model);
             }
         }

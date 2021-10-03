@@ -1,5 +1,5 @@
 ﻿using CoWorking.Models;
-using CoWorking.Repository;
+using CoWorking.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,19 +13,18 @@ namespace CoWorking.Controllers
     public class AdminPanelController : Controller
     {
 
-        private readonly IOrderRepository _orderRepository;
-        private readonly IWorkerRepository _workerRepository;
-        private readonly IWorkSpacesRepository _workSpacesRepository;
-        private readonly IDeviceRepository _deviceRepository;
+        private readonly IOrderService _orderService;
+        private readonly IWorkerService _workerService;
+        private readonly IWorkSpacesService _workSpacesService;
+        private readonly IDeviceService _deviceService;
 
-        public AdminPanelController(IOrderRepository orderRepository, IWorkerRepository workerRepository,
-            IWorkSpacesRepository workSpacesRepository, IDeviceRepository deviceRepository)
+        public AdminPanelController(IOrderService orderService, IWorkerService workerService,
+            IWorkSpacesService workSpacesService, IDeviceService deviceService)
         {
-
-            _orderRepository = orderRepository;
-            _workerRepository = workerRepository;
-            _workSpacesRepository = workSpacesRepository;
-            _deviceRepository = deviceRepository;
+            _orderService = orderService;
+            _workerService = workerService;
+            _workSpacesService = workSpacesService;
+            _deviceService = deviceService;
         }
 
         [Authorize]
@@ -34,14 +33,13 @@ namespace CoWorking.Controllers
             if (User.Identity.Name == "admin")
             {
                 ViewData["Login"] = User.Identity.Name;
-                var model = _orderRepository.GetAllOrders();
+                var model = _orderService.GetAllOrders();
                 return View(model);
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
-            
 
         }
 
@@ -49,7 +47,6 @@ namespace CoWorking.Controllers
         [HttpGet]
         public IActionResult AddOrder(string ErrorMes)
         {
-
             ViewData["alarm"] = ErrorMes;
             return View("AddOrder", new Order());
         }
@@ -59,25 +56,36 @@ namespace CoWorking.Controllers
         public IActionResult AddOrder(Order newOrder, int WorkerID, DateTime StartDate, DateTime EndDate, int WorkSpaceID, string DevicesId)
         {
             var dateNow = DateTime.Now;
-            var workersCheck = _workerRepository.GetWorkerByIDCheck(WorkerID);
-            var workSpaceCheck = _workSpacesRepository.GetPlacesByIDCheck(WorkSpaceID);
-            var orderDublicate = _orderRepository.GetOrdersCheck(StartDate, EndDate, WorkSpaceID);
-            var deviceCheck = _deviceRepository.GetDeviceByID(DevicesId);
+            var workersCheck = _workerService.GetWorkerByIDCheck(WorkerID);
+            var workSpaceCheck = _workSpacesService.GetPlacesByIDCheck(WorkSpaceID);
+            var orderDublicate = _orderService.GetOrdersCheck(StartDate, EndDate, WorkSpaceID);
+            
 
 
             if ((StartDate > dateNow) && (EndDate > dateNow) && (workersCheck != null) && (workSpaceCheck != null))
             {
                 if (orderDublicate == null)
                 {
-                    if (deviceCheck != null)
+                    if (DevicesId == null)
                     {
-                        _orderRepository.AddOrder(newOrder);
+                        _orderService.AddOrder(newOrder);
                     }
                     else
                     {
-                        string ErrorMes = "There are no such devices, check the list of devices in the main menu!";
-                        return RedirectToAction("AddOrder", "AdminPanel", new { ErrorMes });
+                        var deviceCheck = _deviceService.GetDeviceByID(DevicesId);
+
+                        if (deviceCheck != null)
+                        {
+                            _orderService.AddOrder(newOrder);
+                        }
+                        else
+                        {
+                            string ErrorMes = "There are no such devices, check the list of devices in the main menu!";
+                            return RedirectToAction("AddOrder", "AdminPanel", new { ErrorMes });
+                        }
+                        
                     }
+                    
 
                 }
                 else
@@ -101,7 +109,7 @@ namespace CoWorking.Controllers
         public IActionResult OrdersEdit(int id, string ErrorMes)
         {
 
-            Order model = id == default ? new Order() : _orderRepository.GetSingleOrderByID(id);
+            Order model = id == default ? new Order() : _orderService.GetSingleOrderByID(id);
             ViewData["alarm"] = ErrorMes;
             return View(model);
         }
@@ -111,29 +119,39 @@ namespace CoWorking.Controllers
         public IActionResult OrdersEdit(Order order, int WorkerID, int WorkSpaceID, string DevicesId)
         {
 
-            var workersCheck = _workerRepository.GetWorkerByIDCheck(WorkerID);
-            var workSpaceCheck = _workSpacesRepository.GetPlacesByIDCheck(WorkSpaceID);
-            var deviceCheck = _deviceRepository.GetDeviceByID(DevicesId);
-
+            var workersCheck = _workerService.GetWorkerByIDCheck(WorkerID);
+            var workSpaceCheck = _workSpacesService.GetPlacesByIDCheck(WorkSpaceID);
+            
 
             if (ModelState.IsValid)
             {
                 if ((workersCheck != null) && (workSpaceCheck != null))
                 {
-                    if (deviceCheck != null)
+                    
+                    if (DevicesId == null)
                     {
-                        _orderRepository.UpDate(order);
+                        _orderService.UpDate(order);
                     }
                     else
                     {
-                        string ErrorMes = "There are no such devices, check the list of devices in the main menu!";
-                        return RedirectToAction("OrdersEdit", "AdminPanel", new { ErrorMes });
+                        var deviceCheck = _deviceService.GetDeviceByID(DevicesId);
+
+                        if (deviceCheck != null)
+                        {
+                            _orderService.UpDate(order);
+                        }
+                        else
+                        {
+                            string ErrorMes = "There are no such devices, check the list of devices in the main menu!";
+                            return RedirectToAction("OrdersEdit", "AdminPanel", new { ErrorMes });
+                        }
+                        
                     }
 
                 }
                 else
                 {
-                    string ErrorMes = "You entered incorrect data! Check the employee number, start and end dates of work, place number!";
+                    string ErrorMes = "You entered incorrect data! Check the employee number, place number!";
                     return RedirectToAction("OrdersEdit", "AdminPanel", new { ErrorMes });
                 }
 
@@ -146,7 +164,7 @@ namespace CoWorking.Controllers
         [HttpPost]
         public IActionResult OrdersDelete(int id)
         {
-            _orderRepository.DeleteOrder(id);
+            _orderService.DeleteOrder(id);
             return RedirectToAction("AdminPanel", "AdminPanel");
         }
 

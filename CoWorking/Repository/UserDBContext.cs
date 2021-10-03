@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace CoWorking.Repository
 {
-    public class UserDBContext : IdentityDbContext<IdentityUser>
+    public class UserDBContext : DbContext
     {
+
         public UserDBContext(DbContextOptions options) : base(options) { }
         public DbSet<Worker> Worker { get; set; }
         public DbSet<WorkSpace> WorkSpace{ get; set; }

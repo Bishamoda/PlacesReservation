@@ -39,10 +39,6 @@ namespace CoWorking.Repository
         {
             return db.Orders.Single(o => o.OrderId == id);
         }
-        public Order GetOrderByID(int id)
-        {
-            return (Order)db.Orders.Where(o => o.WorkerId == id);
-        }
 
         public Order UpDate(Order orders)
         {

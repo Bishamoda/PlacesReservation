@@ -13,13 +13,15 @@
         <br>
 
         <table class="table">
-            <tr>
+            <tr style="background-color: #cdcdcd ">
                 <th>Work Space number</th>
                 <th>Work Space name</th>
+                <th></th>
+                <th></th>
             </tr>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr style="background-color: #f2f2f2 ">
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>

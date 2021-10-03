@@ -17,7 +17,7 @@
             <div class="col-sm-4">
                 <form asp-action="@Url.Action("UserPanel", "UserPanel")">
                     <div align="center">
-                        <h4>Welcom, @ViewData["Login"]</h4>
+                        <h4>Welcome, @ViewData["Login"]</h4>
                     </div>
                     <div class="container" align="left">
 
@@ -39,7 +39,7 @@
                     <h3>History of orders</h3><br>
                     <table class="table">
 
-                        <tr>
+                        <tr style="background-color: #cdcdcd ">
                             <th>Order number</th>
                             <th>Worker Number</th>
                             <th>Start date</th>
@@ -50,7 +50,7 @@
                         </tr>
                         @foreach (var item in Model)
                         {
-                            <tr>
+                            <tr style="background-color: #f2f2f2 ">
                                 <td>
                                     @Html.DisplayFor(modelItem => item.OrderId)
                                 </td>

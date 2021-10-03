@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoWorking.Repository
+namespace CoWorking.Service
 {
-    public interface IOrderRepository
+    public interface IOrderService
     {
         public IQueryable<Order> GetAllOrders();
         public Order UpDate(Order orders);
@@ -15,8 +15,5 @@ namespace CoWorking.Repository
         public Order AddOrder(Order orders);
         public IQueryable<Order> GetOrderByDate();
         public Order GetOrdersCheck(DateTime StartDate, DateTime EndDate, int WorkSpaceID);
-
-
     }
-
 }

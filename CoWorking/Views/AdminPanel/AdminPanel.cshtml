@@ -17,7 +17,7 @@
     
     <form asp-action="@Url.Action("AdminPanel", "AdminPanel")">
         <div align="center">
-            <h4>Welcom, @ViewData["Login"]</h4>
+            <h4>Welcome, @ViewData["Login"]</h4>
         </div>
         
 
@@ -25,29 +25,34 @@
 
         <div class="container" align="left">
 
-            <a asp-controller="AdminPanel" asp-action="AddOrder">Add order </a><a> </a>
-
-            <a asp-controller="DeviceTable" asp-action="IndexDevice">List of devices </a><a> </a>
-
-            <a asp-controller="WorkersTable" asp-action="IndexWorkers">List of workers </a><a> </a>
-
-            <a asp-controller="WorkSpaceTable" asp-action="IndexWorkSpaces">List of work spaces </a><a> </a><br><br>
+            <a asp-controller="AdminPanel" asp-action="AddOrder"><big>Add order</big> </a>
 
         </div>
         <div align="right">
             <table class="table">
-                <tr>
+                <tr style="background-color: #cdcdcd ">
                     <th>Order number</th>
-                    <th>Worker Number</th>
+                    <th>
+                        Worker Number<br>
+                        <a asp-controller="WorkersTable" asp-action="IndexWorkers">List of workers </a>
+                    </th>
                     <th>Start date</th>
                     <th>End date</th>
-                    <th>Work Space number</th>
-                    <th>Selected devices</th>
+                    <th>
+                        Work Space number<br>
+                        <a asp-controller="WorkSpaceTable" asp-action="IndexWorkSpaces">List of workspaces </a>
+                    </th>
+                    <th>
+                        Selected devices<br>
+                        <a asp-controller="DeviceTable" asp-action="IndexDevice">List of devices </a>
+                    </th>
+                    <th></th>
+                    <th></th>
 
                 </tr>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr style="background-color: #f2f2f2 ">
                         <td>
                             @Html.DisplayFor(modelItem => item.OrderId)
                         </td>

@@ -1,5 +1,5 @@
 ﻿using CoWorking.Models;
-using CoWorking.Repository;
+using CoWorking.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,11 +11,11 @@ namespace CoWorking.Controllers
 {
     public class WorkSpaceTableController : Controller
     {
-        private readonly IWorkSpacesRepository _workSpacesRepository;
+        private readonly IWorkSpacesService _workSpacesService;
 
-        public WorkSpaceTableController(IWorkSpacesRepository workSpacesRepository)
+        public WorkSpaceTableController(IWorkSpacesService workSpacesService)
         {
-            _workSpacesRepository = workSpacesRepository;
+            _workSpacesService = workSpacesService;
 
         }
 
@@ -31,7 +31,7 @@ namespace CoWorking.Controllers
             {
                 if (User.Identity.Name == "admin")
                 {
-                    var model = _workSpacesRepository.GetAllPlaces();
+                    var model = _workSpacesService.GetAllPlaces();
                     return View(model);
                 }
                 else
@@ -45,7 +45,7 @@ namespace CoWorking.Controllers
         public IActionResult IndexWorkSpacesUser()
         {
 
-            var model = _workSpacesRepository.GetAllPlaces();
+            var model = _workSpacesService.GetAllPlaces();
             return View(model);
 
         }
@@ -63,10 +63,10 @@ namespace CoWorking.Controllers
         [HttpPost]
         public IActionResult AddWorkSpace(WorkSpace newWorkSpace, string WorkSpaceName)
         {
-            var dublicateworkSpace = _workSpacesRepository.NameCheck(WorkSpaceName);
+            var dublicateworkSpace = _workSpacesService.NameCheck(WorkSpaceName);
             if (dublicateworkSpace == null)
             {
-                _workSpacesRepository.AddWorkSpace(newWorkSpace);
+                _workSpacesService.AddWorkSpace(newWorkSpace);
             }
             else
             {
@@ -81,7 +81,7 @@ namespace CoWorking.Controllers
         [HttpPost]
         public IActionResult WorkSpaceDelete(int id)
         {
-            _workSpacesRepository.DeleteWorkSpace(id);
+            _workSpacesService.DeleteWorkSpace(id);
             return RedirectToAction("IndexWorkSpaces", "WorkSpaceTable");
         }
     }
